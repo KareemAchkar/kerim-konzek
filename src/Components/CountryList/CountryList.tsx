@@ -12,7 +12,6 @@ export const CountryList = () => {
   const dispatch = useDispatch()
   const filteredCountries = useSelector((state: RootState) => state.countriesReducer.filteredCountries || [])
   const [querySearch, setQuerySearch] = useState('');
-  const [debouncedQuery] = useState('');
 
   const debounceDispatch = useCallback(
     debounce((value: string) => dispatch(filterBySearch(value)), 500),
@@ -25,13 +24,14 @@ export const CountryList = () => {
   };
 
   const selectItem = useCallback(() => {
-    if (filteredCountries.length > 0 && debouncedQuery.length > 0) {
-      const targetIndex = Math.min(filteredCountries.length - 1, 9);
-      dispatch(selectCountry(targetIndex));
+    if (querySearch && filteredCountries.length > 10) {
+      dispatch(selectCountry(9)); 
+    } else if (filteredCountries.length > 0) {
+      dispatch(selectCountry(filteredCountries.length - 1)); 
     } else {
       dispatch(selectCountry(null));
     }
-  }, [filteredCountries, debouncedQuery]);
+  }, [filteredCountries]);
 
   useEffect(() => {
     selectItem();

@@ -5,7 +5,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../../Store/Store";
 import { selectCountry } from "../../../Store/Slices/CountriesSlice";
 
-
 type Props = {
   index: number,
   country: countryType

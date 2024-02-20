@@ -12,6 +12,9 @@ export const GET_CHARACTERS = gql`
         code
         name
       }
+      continent {
+        name
+      }
     }
   }
 `;
